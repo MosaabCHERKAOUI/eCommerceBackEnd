@@ -98,10 +98,10 @@ class UserController extends Controller
             return response()->json($e->errors(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
         }
         $client = User::find($id);
-        if($client->isEmpty()) {
+        if(!$client) {
             return response()->json("User Not Found", JsonResponse::HTTP_NOT_FOUND);
         } else {
-            if($client->password == $request->input('password')) {
+            if($client->password == $request->password) {
                 return response()->json('Old Password does not match new password');
             }
             $client->fill($request->only([
