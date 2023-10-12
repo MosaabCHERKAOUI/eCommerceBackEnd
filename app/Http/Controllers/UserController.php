@@ -81,28 +81,28 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id):JsonResponse
     {
-        try {
-            $this->validate($request, [
-                'f_name'=> 'string',
-                'l_name'=> 'string',
-                'email'=> 'email',
-                'address'=> 'string|max:50',
-                'phone_number'=> 'digits_between:10,15',
-                'city'=> 'string',
-                'info_address'=> 'string',
-                'country'=> 'string',
-                'old_password'=> 'string',
-                'password'=> 'string'
-            ]);
-        } catch (ValidationException $e) {
-            return response()->json($e->errors(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
-        }
         $client = User::find($id);
         if(!$client) {
             return response()->json("User Not Found", JsonResponse::HTTP_NOT_FOUND);
         } else {
             if($client->password == $request->password) {
                 return response()->json('Old Password does not match new password');
+            }
+            try {
+                $this->validate($request, [
+                    'f_name'=> 'string',
+                    'l_name'=> 'string',
+                    'email'=> 'email',
+                    'address'=> 'string|max:50',
+                    'phone_number'=> 'digits_between:10,15',
+                    'city'=> 'string',
+                    'info_address'=> 'string',
+                    'country'=> 'string',
+                    'old_password'=> 'string',
+                    'password'=> 'string'
+                ]);
+            } catch (ValidationException $e) {
+                return response()->json($e->errors(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
             }
             $client->fill($request->only([
                 'f_name',

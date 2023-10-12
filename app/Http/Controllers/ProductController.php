@@ -15,7 +15,7 @@ class ProductController extends Controller
     public function index():JsonResponse
     {
         $products = Product::all();
-        if(!$products) {
+        if($products->isEmpty()) {
             return response()->json('No Products Found', JsonResponse::HTTP_NOT_FOUND);
         }
         return response()->json($products, JsonResponse::HTTP_OK);
