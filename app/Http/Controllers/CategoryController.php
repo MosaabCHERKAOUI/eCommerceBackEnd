@@ -15,7 +15,7 @@ class CategoryController extends Controller
     public function index(): JsonResponse
     {
         $category = Category::all();
-        if(!$category) {
+        if($category->isEmpty()) {
             return response()->json('Category Not Found', JsonResponse::HTTP_NOT_FOUND);
         } else {
             return response()->json($category, JsonResponse::HTTP_OK);

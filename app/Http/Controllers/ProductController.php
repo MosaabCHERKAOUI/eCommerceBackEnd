@@ -45,7 +45,7 @@ class ProductController extends Controller
             'rating'=> $request->input('rating'),
             'category'=> $request->input('category')
         ]);
-        return response()->json('Product Created Successfully', JsonResponse::HTTP_CREATED);
+        return response()->json(['msg'=>'Product Created Successfully', 'product'=> $product], JsonResponse::HTTP_CREATED);
     }
 
     /**
