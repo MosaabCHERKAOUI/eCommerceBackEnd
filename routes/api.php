@@ -5,6 +5,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DetailsController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SecurityController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -73,3 +74,6 @@ Route::prefix('details')->group(function () {
     Route::put('/{id}', [DetailsController::class, 'update']);
     Route::delete('/{id}', [DetailsController::class, 'destroy']);
 });
+
+Route::post('/login', [SecurityController::class, 'index']);
+Route::post('/signin', [SecurityController::class, 'store']);
